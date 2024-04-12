@@ -10,9 +10,9 @@ playerImage.src = "shadow_dog.png";
 const spriteWidth = 575;
 const spriteHeight = 523;
 let frameX = 0;
-let frameY = 4;
+let frameY = 0;
 let gameframe = 0;
-const staggerFrame = 2;
+const staggerFrame = 5;
 
 function animate() {
   // clearRect(x, y, width, height)
@@ -24,9 +24,11 @@ function animate() {
   //   drawImage(image, dx, dy, dWidth, dHeight) array of images
   // ctx.drawImage(playerImage, 50, 50, CANVAS_WIDTH, CANVAS_HEIGHT);
   // drawImage(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight): sprite sheets
+  let position = Math.floor(gameframe/staggerFrame) % 6;
+  frameX = spriteWidth * position
   ctx.drawImage(
     playerImage,
-    frameX * spriteWidth,
+    frameX,
     frameY * spriteHeight,
     spriteWidth,
     spriteHeight,
@@ -35,10 +37,8 @@ function animate() {
     spriteWidth,
     spriteHeight
   );
-  if (gameframe % staggerFrame == 0) {
-    if (frameX < 10) frameX++;
-    else frameX = 0;
-  }
+
+
   gameframe++;
   // call the parent function create a endless loop
   requestAnimationFrame(animate);
